@@ -8,21 +8,23 @@
 <body>
   <div id="nc-root"></div>
   <script>
-    // Force manual initialization to prevent Netlify Identity redirect
     window.CMS_MANUAL_INIT = true;
   </script>
-  <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Explicitly initialize CMS with minimal config
     CMS.init({
       config: {
         backend: {
           name: 'github',
           repo: 'emirmehmedovic/webaerodrom',
-          branch: 'main'
+          branch: 'main',
+          auth_scope: 'repo',
+          base_url: 'https://vercel.com'
         },
-        media_folder: 'public/images/uploads',
-        public_folder: '/images/uploads'
+        local_backend: true,
+        load_config_file: false,
+        display_url: 'https://tuzla-airport.vercel.app',
+        site_url: 'https://tuzla-airport.vercel.app'
       }
     });
   </script>
