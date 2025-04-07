@@ -3,9 +3,7 @@ backend:
   name: github
   repo: emirmehmedovic/webaerodrom
   branch: main
-  app_id: 1206775 # Your specific GitHub App ID
-  auth_scope: repo
-  api_root: https://api.github.com
+  app_id: 1206775
 
 # Media files will be stored in the `public/images/uploads` folder
 media_folder: "public/images/uploads"  # Where media files are stored
