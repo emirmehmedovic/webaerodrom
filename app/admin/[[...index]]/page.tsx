@@ -1,23 +1,23 @@
 "use client";
 
 import { useEffect } from 'react';
+import config from '@/lib/decap-config'; // Import the config object
 
-// This component ensures the route exists for Decap CMS to mount.
-// The actual CMS is loaded via the script in `public/admin/index.html`.
+// This component ensures the route exists and initializes Decap CMS
 export default function AdminPage() {
-
   useEffect(() => {
-    // Optional: You might perform client-side checks or initializations here if needed,
-    // but Decap CMS should initialize itself from the HTML file.
-    // Ensure the netlify-identity-widget script is loaded if using Netlify Identity.
-    // Ensure the decap-cms script is loaded.
+    // Dynamically import decap-cms-app only on the client-side
+    (async () => {
+      const CMS = (await import('decap-cms-app')).default; // Use .default for dynamic import
+      // Initialize Decap CMS with the imported config
+      // Use 'any' for config type assertion if strict types cause issues with the library
+      CMS.init({ config: config as any });
+    })();
   }, []);
 
-  // Decap CMS script will mount its UI in the div with id="nc-root"
-  // defined in public/admin/index.html. This component just renders the route.
-  // Alternatively, some setups might require rendering the HTML content here.
-  // Let's keep it simple for now.
-  return null; // Render nothing, as the HTML file handles the UI mounting.
-  // Or, if issues persist, try rendering the div:
-  // return <div id="nc-root">Loading CMS...</div>;
+  // Decap CMS needs a root element to mount onto.
+  // While the old method used public/admin/index.html, this approach
+  // relies on this component rendering the mount point.
+  // We return an empty div; Decap's init script will populate it.
+  return <div id="nc-root"></div>;
 }

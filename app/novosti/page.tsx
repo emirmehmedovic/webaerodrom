@@ -1,22 +1,11 @@
 import React from 'react';
+import Link from 'next/link'; // Import Link
 import { Newspaper } from 'lucide-react'; // Import icon
+import { getSortedPostsData, PostData } from '@/lib/posts'; // Import fetching function and type
 
-// Placeholder for fetched article data
-// interface Article {
-//   _id: string;
-//   title: string;
-//   slug: { current: string };
-//   publishedAt: string;
-//   mainImage?: { asset: { url: string }; alt: string };
-//   // Add other fields as needed
-// }
-
-export default function NewsPage() {
-  // Placeholder data - replace with actual data fetching later
-  const articles: any[] = [
-    { _id: '1', title: 'Primjer Naslova Novosti 1', slug: { current: 'primjer-novosti-1'}, publishedAt: '2025-07-04T10:00:00Z'},
-    { _id: '2', title: 'Primjer Naslova Novosti 2', slug: { current: 'primjer-novosti-2'}, publishedAt: '2025-07-03T10:00:00Z'},
-  ];
+export default async function NewsPage() {
+  // Fetch news articles (category 'novosti' is implied by the folder)
+  const articles = await getSortedPostsData('novosti');
 
   return (
     <div className="container mx-auto px-4 py-12 space-y-16 relative overflow-hidden rounded-[15px]">
@@ -40,24 +29,23 @@ export default function NewsPage() {
       {/* Articles List Section */}
       <section className="max-w-4xl mx-auto space-y-8 animate-fade-in-delay-1">
         {articles.length > 0 ? (
-          articles.map((article) => (
-            <div key={article._id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10">
-              <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-[#64ffda]">
-                {/* Link to article page (needs to be created later) */}
-                {/* <Link href={`/novosti/${article.slug.current}`}> */}
+          articles.map((article: PostData) => ( // Added type PostData
+            <div key={article.id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
+                <Link href={`/novosti/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors">
                   {article.title}
-                {/* </Link> */}
+                </Link>
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 Objavljeno: {new Date(article.publishedAt).toLocaleDateString('bs-BA')}
               </p>
-              {/* Add excerpt or image preview here later */}
-              <p className="text-gray-700 dark:text-gray-300 text-sm">
-                Ovdje će ići kratki izvod članka...
-              </p>
-               {/* <Link href={`/novosti/${article.slug.current}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block">
+              {/* Add excerpt here if available in frontmatter later */}
+              {/* <p className="text-gray-700 dark:text-gray-300 text-sm mb-4">
+                {article.excerpt || 'Ovdje će ići kratki izvod članka...'}
+              </p> */}
+               <Link href={`/novosti/${article.slug}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block font-medium">
                  Pročitaj više...
-               </Link> */}
+               </Link>
             </div>
           ))
         ) : (

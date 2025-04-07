@@ -1,21 +1,14 @@
 import React from 'react';
+import Link from 'next/link'; // Import Link
 import { Megaphone } from 'lucide-react'; // Import icon
+import { getSortedPostsData, PostData } from '@/lib/posts'; // Import fetching function and type
 
-// Placeholder for fetched article data
-// interface Article {
-//   _id: string;
-//   title: string;
-//   slug: { current: string };
-//   publishedAt: string;
-//   // Add other fields as needed
-// }
+export default async function CurrentPublicCallsPage() {
+  // Fetch all public calls
+  const allPublicCalls = await getSortedPostsData('javni-pozivi');
 
-export default function CurrentPublicCallsPage() {
-  // Placeholder data - replace with actual data fetching later
-  // This should fetch posts where category === 'javni-poziv' AND status === 'aktuelni'
-  const articles: any[] = [
-     { _id: '3', title: 'Primjer Aktuelnog Javnog Poziva 1', slug: { current: 'javni-poziv-1'}, publishedAt: '2025-07-01T10:00:00Z'},
-  ];
+  // Filter for 'aktuelni' status
+  const articles = allPublicCalls.filter(article => article.status === 'aktuelni');
 
   return (
     <div className="container mx-auto px-4 py-12 space-y-16 relative overflow-hidden rounded-[15px]">
@@ -39,13 +32,13 @@ export default function CurrentPublicCallsPage() {
       {/* Articles List Section */}
       <section className="max-w-4xl mx-auto space-y-8 animate-fade-in-delay-1">
         {articles.length > 0 ? (
-          articles.map((article) => (
-            <div key={article._id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10">
-              <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-[#64ffda]">
-                {/* Link to article page (needs to be created later) */}
-                {/* <Link href={`/javni-pozivi/${article.slug.current}`}> */}
-                  {article.title}
-                {/* </Link> */}
+          articles.map((article: PostData) => (
+            <div key={article.id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 transition-all duration-300 hover:shadow-lg">
+              <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
+                 {/* Link to article page (needs to be created later) */}
+                 {/* <Link href={`/javni-pozivi/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors"> */}
+                   {article.title}
+                 {/* </Link> */}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 Objavljeno: {new Date(article.publishedAt).toLocaleDateString('bs-BA')}
@@ -54,7 +47,7 @@ export default function CurrentPublicCallsPage() {
               <p className="text-gray-700 dark:text-gray-300 text-sm">
                 Ovdje će ići kratki opis ili sadržaj javnog poziva...
               </p>
-               {/* <Link href={`/javni-pozivi/${article.slug.current}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block">
+               {/* <Link href={`/javni-pozivi/${article.slug}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block font-medium">
                  Detaljnije...
                </Link> */}
             </div>

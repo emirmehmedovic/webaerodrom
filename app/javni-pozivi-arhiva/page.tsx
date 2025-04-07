@@ -1,22 +1,14 @@
 import React from 'react';
+import Link from 'next/link'; // Import Link
 import { Archive } from 'lucide-react'; // Import icon
+import { getSortedPostsData, PostData } from '@/lib/posts'; // Import fetching function and type
 
-// Placeholder for fetched article data
-// interface Article {
-//   _id: string;
-//   title: string;
-//   slug: { current: string };
-//   publishedAt: string;
-//   // Add other fields as needed
-// }
+export default async function ArchivedPublicCallsPage() {
+  // Fetch all public calls
+  const allPublicCalls = await getSortedPostsData('javni-pozivi');
 
-export default function ArchivedPublicCallsPage() {
-  // Placeholder data - replace with actual data fetching later
-  // This should fetch posts where category === 'javni-poziv' AND status === 'arhiva'
-  const articles: any[] = [
-     { _id: '4', title: 'Primjer Arhiviranog Javnog Poziva 1', slug: { current: 'javni-poziv-arhiva-1'}, publishedAt: '2024-12-01T10:00:00Z'},
-     { _id: '5', title: 'Primjer Arhiviranog Javnog Poziva 2', slug: { current: 'javni-poziv-arhiva-2'}, publishedAt: '2024-11-01T10:00:00Z'},
-  ];
+  // Filter for 'arhiva' status
+  const articles = allPublicCalls.filter(article => article.status === 'arhiva');
 
   return (
     <div className="container mx-auto px-4 py-12 space-y-16 relative overflow-hidden rounded-[15px]">
@@ -40,13 +32,13 @@ export default function ArchivedPublicCallsPage() {
       {/* Articles List Section */}
       <section className="max-w-4xl mx-auto space-y-8 animate-fade-in-delay-1">
         {articles.length > 0 ? (
-          articles.map((article) => (
-            <div key={article._id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 opacity-80"> {/* Added opacity */}
+          articles.map((article: PostData) => (
+            <div key={article.id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 opacity-80 transition-all duration-300 hover:shadow-lg hover:opacity-90"> {/* Added opacity and hover */}
               <h2 className="text-2xl font-semibold mb-2 text-gray-700 dark:text-gray-400"> {/* Muted title */}
-                {/* Link to article page (needs to be created later) */}
-                {/* <Link href={`/javni-pozivi-arhiva/${article.slug.current}`}> */}
-                  {article.title}
-                {/* </Link> */}
+                 {/* Link to article page (needs to be created later) */}
+                 {/* <Link href={`/javni-pozivi/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors"> */}
+                   {article.title}
+                 {/* </Link> */}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-500 mb-4"> {/* Muted date */}
                 Objavljeno: {new Date(article.publishedAt).toLocaleDateString('bs-BA')} (Arhivirano)
@@ -55,7 +47,7 @@ export default function ArchivedPublicCallsPage() {
               <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Ovdje će ići kratki opis ili sadržaj arhiviranog javnog poziva...
               </p>
-               {/* <Link href={`/javni-pozivi-arhiva/${article.slug.current}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block">
+               {/* <Link href={`/javni-pozivi/${article.slug}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block font-medium">
                  Detaljnije...
                </Link> */}
             </div>
