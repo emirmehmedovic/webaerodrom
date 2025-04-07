@@ -4,46 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
-  <!-- Explicitly disable Netlify Identity integration -->
-  <script>window.CMS_MANUAL_INIT = true;</script>
-  <!-- Load js-yaml library (needed for parsing config.yml) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <!-- Netlify Identity script removed -->
 </head>
 <body>
   <!-- Decap CMS will mount here -->
   <div id="nc-root"></div>
-
-  <!-- Load Decap CMS script -->
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <!-- It should automatically look for /admin/config.yml -->
   <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
-
-  <!-- Manually initialize Decap CMS after fetching and parsing config.yml -->
-  <script type="module">
-    import CMS from 'https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js';
-
-    async function initCMS() {
-      try {
-        const response = await fetch('/admin/config.yml');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch config.yml: ${response.statusText}`);
-        }
-        const configYml = await response.text();
-        const config = jsyaml.load(configYml); // Use js-yaml loaded globally
-
-        // Ensure backend is set correctly (double-check)
-        if (config && config.backend && config.backend.name === 'github') {
-           console.log('Initializing Decap CMS with GitHub backend config:', config);
-           CMS.init({ config });
-        } else {
-           console.error('Failed to load or parse valid GitHub backend config from config.yml');
-           document.getElementById('nc-root').innerText = 'Error: Invalid CMS configuration loaded.';
-        }
-      } catch (error) {
-        console.error('Error initializing CMS:', error);
-        document.getElementById('nc-root').innerText = `Error initializing CMS: ${error.message}`;
-      }
-    }
-
-    initCMS();
-  </script>
 </body>
 </html>
