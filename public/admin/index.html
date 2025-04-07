@@ -4,13 +4,56 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
-  <!-- Netlify Identity script removed -->
 </head>
 <body>
-  <!-- Decap CMS will mount here -->
   <div id="nc-root"></div>
-  <!-- Include the script that builds the page and powers Decap CMS -->
-  <!-- It should automatically look for /admin/config.yml -->
+  <script>
+    // Force manual initialization to prevent Netlify Identity redirect
+    window.CMS_MANUAL_INIT = true;
+  </script>
   <script src="https://unpkg.com/decap-cms@3.1.10/dist/decap-cms.js"></script>
+  <script>
+    // Explicitly initialize CMS with our config
+    CMS.init({
+      config: {
+        backend: {
+          name: 'github',
+          repo: 'emirmehmedovic/webaerodrom',
+          branch: 'main'
+        },
+        media_folder: 'public/images/uploads',
+        public_folder: '/images/uploads',
+        collections: [
+          {
+            name: 'novosti',
+            label: 'Novosti',
+            folder: '_content/novosti',
+            create: true,
+            slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+            fields: [
+              { label: 'Naslov', name: 'title', widget: 'string', required: true },
+              { label: 'Datum objave', name: 'publishedAt', widget: 'datetime', required: true },
+              { label: 'Glavna slika', name: 'mainImage', widget: 'image', required: false },
+              { label: 'Sadržaj', name: 'body', widget: 'markdown', required: true }
+            ]
+          },
+          {
+            name: 'javni-pozivi',
+            label: 'Javni Pozivi',
+            folder: '_content/javni-pozivi',
+            create: true,
+            slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+            fields: [
+              { label: 'Naslov', name: 'title', widget: 'string', required: true },
+              { label: 'Datum objave', name: 'publishedAt', widget: 'datetime', required: true },
+              { label: 'Status', name: 'status', widget: 'select', options: ['aktuelni', 'arhiva'], default: 'aktuelni', required: true },
+              { label: 'Glavna slika', name: 'mainImage', widget: 'image', required: false },
+              { label: 'Sadržaj', name: 'body', widget: 'markdown', required: true }
+            ]
+          }
+        ]
+      }
+    });
+  </script>
 </body>
 </html>
