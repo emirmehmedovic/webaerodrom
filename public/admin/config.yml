@@ -4,7 +4,7 @@ backend:
   repo: emirmehmedovic/webaerodrom
   branch: main
   base_url: https://vercel.com
-  auth_endpoint: https://vercel.com/api/auth/github
+  auth_endpoint: https://tuzla-airport.vercel.app/api/auth/callback
   app_id: 1206775 # Your specific GitHub App ID
   auth_scope: repo
   api_root: https://api.github.com
