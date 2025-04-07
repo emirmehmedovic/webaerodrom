@@ -1,6 +1,4 @@
-# Configuration for Decap CMS (formerly Netlify CMS)
-
-# Use the GitHub backend for authentication. Users will log in with their GitHub accounts.
+# Configuration for Decap CMS
 backend:
   name: github
   repo: emirmehmedovic/webaerodrom
@@ -12,12 +10,28 @@ backend:
   api_root: https://api.github.com
 
 # Media files will be stored in the `public/images/uploads` folder
-media_folder: "public/images/uploads"
-# The public URL for accessing media files (relative to the site root)
-public_folder: "/images/uploads"
+media_folder: "public/images/uploads"  # Where media files are stored
+public_folder: "/images/uploads"       # Public URL path
+media_library:
+  name: uploadcare
+  config:
+    publicKey: demopublickey
+    locale: en
+    multiple: true
+    preferredUploadMethod: default
 
 # Define the content types (collections)
 collections:
+  - name: settings
+    label: Site Settings
+    files:
+      - file: "_content/settings/site.json"
+        label: "General Settings"
+        name: "general"
+        fields:
+          - {label: "Site Title", name: "title", widget: "string"}
+          - {label: "Site Description", name: "description", widget: "text"}
+
   # Novosti (News) Collection
   - name: "novosti" # Used in routes, e.g., /admin/collections/novosti
     label: "Novosti" # Used in the UI
