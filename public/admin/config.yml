@@ -4,6 +4,7 @@ backend:
   repo: emirmehmedovic/webaerodrom
   branch: main
   app_id: 1206775
+  base_url: https://api.github.com
 
 # Media files will be stored in the `public/images/uploads` folder
 media_folder: "public/images/uploads"  # Where media files are stored
