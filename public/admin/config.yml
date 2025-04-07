@@ -1,0 +1,42 @@
+# Configuration for Decap CMS (formerly Netlify CMS)
+
+# Backend defines how Decap CMS connects to your Git repository.
+# Use the GitHub backend for authentication. Users will log in with their GitHub accounts.
+backend:
+  name: github
+  repo: emirmehmedovic/webaerodrom # Your GitHub username/repository
+  branch: main # Or whichever branch you want the CMS to commit to
+
+# Media files will be stored in the `public/images/uploads` folder
+media_folder: "public/images/uploads"
+# The public URL for accessing media files (relative to the site root)
+public_folder: "/images/uploads"
+
+# Define the content types (collections)
+collections:
+  # Novosti (News) Collection
+  - name: "novosti" # Used in routes, e.g., /admin/collections/novosti
+    label: "Novosti" # Used in the UI
+    folder: "_content/novosti" # Where the Markdown files will be stored
+    create: true # Allow users to create new items in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template
+    fields: # The fields for each document, usually in frontmatter
+      - { label: "Naslov", name: "title", widget: "string", required: true }
+      - { label: "Datum objave", name: "publishedAt", widget: "datetime", required: true }
+      - { label: "Glavna slika", name: "mainImage", widget: "image", required: false }
+      - { label: "Sadržaj", name: "body", widget: "markdown", required: true }
+      # Implicitly category: 'novosti' because it's in this collection
+
+  # Javni Pozivi (Public Calls) Collection
+  - name: "javni-pozivi"
+    label: "Javni Pozivi"
+    folder: "_content/javni-pozivi"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Naslov", name: "title", widget: "string", required: true }
+      - { label: "Datum objave", name: "publishedAt", widget: "datetime", required: true }
+      - { label: "Status", name: "status", widget: "select", options: ["aktuelni", "arhiva"], default: "aktuelni", required: true }
+      - { label: "Glavna slika", name: "mainImage", widget: "image", required: false }
+      - { label: "Sadržaj", name: "body", widget: "markdown", required: true }
+      # Implicitly category: 'javni-poziv' because it's in this collection
