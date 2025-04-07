@@ -3,8 +3,13 @@
 # Use the GitHub backend for authentication. Users will log in with their GitHub accounts.
 backend:
   name: github
-  repo: emirmehmedovic/webaerodrom # Your GitHub username/repository
-  branch: main # Or whichever branch you want the CMS to commit to
+  repo: emirmehmedovic/webaerodrom
+  branch: main
+  base_url: https://vercel.com
+  auth_endpoint: https://vercel.com/api/auth/github
+  app_id: 344138 # GitHub app ID for Decap CMS
+  auth_scope: repo
+  api_root: https://api.github.com
 
 # Media files will be stored in the `public/images/uploads` folder
 media_folder: "public/images/uploads"
