@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+  <!-- Include the Identity widget script if using Netlify Identity -->
+  <!-- <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
+</head>
+<body>
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <!-- It will automatically look for /admin/config.yml -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Initialize the CMS using the config object from the JS file -->
+  <!-- This script block might be needed if loading config via JS is preferred -->
+  <!--
+  <script type="module">
+    import CMS from 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+    // Assuming your config is globally available or loaded differently
+    // CMS.init({ config });
+  </script>
+  -->
+</body>
+</html>

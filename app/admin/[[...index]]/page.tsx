@@ -1,23 +1,13 @@
 "use client";
 
-import { useEffect } from 'react';
-import config from '@/lib/decap-config'; // Import the config object
+import React from 'react';
 
-// This component ensures the route exists and initializes Decap CMS
+// Simplified component.
+// It only renders the root div. The CMS should be loaded by
+// the script in `public/admin/index.html` which looks for `public/admin/config.yml`.
 export default function AdminPage() {
-  useEffect(() => {
-    // Dynamically import decap-cms-app only on the client-side
-    (async () => {
-      const CMS = (await import('decap-cms-app')).default; // Use .default for dynamic import
-      // Initialize Decap CMS with the imported config
-      // Use 'any' for config type assertion if strict types cause issues with the library
-      CMS.init({ config: config as any });
-    })();
-  }, []);
-
-  // Decap CMS needs a root element to mount onto.
-  // While the old method used public/admin/index.html, this approach
-  // relies on this component rendering the mount point.
-  // We return an empty div; Decap's init script will populate it.
-  return <div id="nc-root"></div>;
+  console.log("Rendering simplified AdminPage component for standard Decap setup.");
+  // Decap CMS script will mount its UI in the div with id="nc-root"
+  // defined in public/admin/index.html.
+  return <div id="nc-root">Loading CMS...</div>;
 }
