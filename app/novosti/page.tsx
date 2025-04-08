@@ -2,6 +2,7 @@ export const revalidate = 0;
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // Import Image component
 import { Newspaper } from 'lucide-react';
 import { getNovosti } from '@/lib/sanity';
 
@@ -28,21 +29,36 @@ export default async function NewsPage() {
       </section>
 
       {/* Articles List Section */}
-      <section className="max-w-4xl mx-auto space-y-8 animate-fade-in-delay-1">
+      <section className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in-delay-1"> {/* Changed to grid layout */}
         {articles.length > 0 ? (
           articles.map((article: any) => (
-            <div key={article._id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 transition-all duration-300 hover:shadow-lg">
-              <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
-                <Link href={`/novosti/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors">
-                  {article.title}
+            <div key={article._id} className="rounded-[15px] overflow-hidden shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 transition-all duration-300 hover:shadow-lg">
+              {/* Image */}
+              {article.mainImage?.asset?.url && (
+                <Link href={`/novosti/${article.slug}`} className="block relative w-full aspect-video group"> {/* Changed h-64 to aspect-video */}
+                  <Image
+                    src={article.mainImage.asset.url}
+                    alt={article.mainImage.alt || article.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="transition-transform duration-300 group-hover:scale-105"
+                  />
                 </Link>
-              </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                Objavljeno: {new Date(article.publishedAt).toLocaleDateString('bs-BA')}
-              </p>
-              <Link href={`/novosti/${article.slug.current}`} className="text-blue-600 dark:hover:text-[#64ffda] hover:underline text-sm mt-2 inline-block font-medium">
-                Pročitaj više...
-              </Link>
+              )}
+              {/* Content Below Image */}
+              <div className="p-6">
+                <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
+                  <Link href={`/novosti/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors">
+                    {article.title}
+                  </Link>
+                </h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  Objavljeno: {new Date(article.publishedAt).toLocaleDateString('bs-BA')}
+                </p>
+                <Link href={`/novosti/${article.slug}`} className="text-blue-600 dark:hover:text-[#64ffda] hover:underline text-sm mt-2 inline-block font-medium">
+                  Pročitaj više...
+                </Link>
+              </div>
             </div>
           ))
         ) : (

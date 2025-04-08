@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import { FlightSchedule } from "@/components/flights/flight-schedule"
 import { BentoGrid } from "@/components/home/bento-grid"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -58,7 +60,7 @@ export default async function Home() { // Make component async
               Pregled aktuelnih javnih nabavki i tendera na aerodromu.
             </p>
             <Button asChild variant="outline" className="w-full border border-[#64ffda] text-[#64ffda] bg-transparent hover:bg-[#64ffda]/10 hover:text-[#64ffda]">
-              <a href="/javne-nabavke">Pogledaj</a>
+              <a href="/javni-pozivi">Pogledaj</a>
             </Button>
           </Card>
 
@@ -137,80 +139,42 @@ export default async function Home() { // Make component async
       {/* Aktuelnosti Section */}
       <section className="mt-12">
         <h2 className="text-2xl font-bold mb-6">Aktuelnosti</h2>
-        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">Broj novosti: {latestNovosti.length}</p>
-        <ul className="mb-4 text-sm text-gray-500 dark:text-gray-400">
-          {latestNovosti.map((a: any) => (
-            <li key={a._id}>{a.title} ({a.category})</li>
-          ))}
-        </ul>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"> {/* 4 columns on medium+ screens */}
           {latestNovosti.map((article: any) => (
-            <div
-              key={article._id}
-              className="rounded-xl overflow-hidden shadow-2xl backdrop-blur-sm bg-gradient-to-br from-sky-100/30 to-blue-100/30 flex flex-col dark:bg-[#172a45]/60 dark:border dark:border-[#64ffda]/30"
-            >
-              {/* TODO: Add image from Sanity if available */}
-              {/* <Image ... /> */}
-              <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{article.title}</h3>
-                {/* TODO: Add excerpt from Sanity if available */}
-                {/* <p className="text-sm mb-4 flex-grow">...</p> */}
-                <div className="flex justify-between items-center text-sm mt-auto">
-                  <span className="text-gray-500 dark:text-gray-400">{new Date(article.publishedAt).toLocaleDateString('bs-BA')}</span>
-                  <Link href={`/novosti/${article.slug}`} className="text-blue-600 dark:text-[#64ffda] hover:underline">
-                    Pročitaj više
-                  </Link>
+            <Link href={`/novosti/${article.slug}`} key={article._id} className="group block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 dark:bg-[#172a45]/60 dark:border dark:border-[#64ffda]/30">
+              {article.mainImage?.asset?.url && (
+                <div className="relative w-full h-48"> {/* Consistent height */}
+                  <Image
+                    src={article.mainImage.asset.url}
+                    alt={article.mainImage.alt || article.title}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="transition-transform duration-300 group-hover:scale-105"
+                  />
                 </div>
+              )}
+              <div className="p-4">
+                <h3 className="text-md font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-[#64ffda] transition-colors">
+                  {article.title}
+                </h3>
               </div>
-            </div>
+            </Link>
           ))}
           {latestNovosti.length === 0 && (
-             <p className="text-center text-gray-500 dark:text-gray-400 md:col-span-2">Trenutno nema novosti.</p>
+             <p className="text-center text-gray-500 dark:text-gray-400 md:col-span-4">Trenutno nema novosti.</p>
           )}
         </div>
+        {/* "Pogledaj sve" Button */}
+        {latestNovosti.length > 0 && (
+          <div className="mt-8 text-center">
+            <Button asChild variant="outline" className="border-[#64ffda] text-[#64ffda] hover:bg-[#64ffda]/10 hover:text-[#64ffda]">
+              <Link href="/novosti">Pogledaj sve</Link>
+            </Button>
+          </div>
+        )}
       </section>
 
-      {/* Aktuelni javni pozivi Section */}
-      <section className="mt-12">
-        <h2 className="text-2xl font-bold mb-6">Aktuelni javni pozivi</h2>
-        <div className="flex space-x-4 overflow-x-auto scrollbar-hide pb-4 items-center justify-center">
-          {[1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className="min-w-[220px] max-w-[220px] flex-shrink-0 rounded-xl overflow-hidden shadow-lg backdrop-blur-sm bg-gradient-to-br from-purple-100/30 to-pink-100/30 flex flex-col"
-            >
-              <Image
-                src={
-                  i === 1
-                    ? "/images/i-4.png"
-                    : i === 2
-                    ? "/images/pexels-burak-karaduman-712806-1549326.jpg"
-                    : i === 3
-                    ? "/images/pexels-jonasvonwerne-1217111-2.jpg"
-                    : "/images/pexels-vlada-karpovich-7368308.jpg"
-                }
-                
-                alt={`Naslovna slika javnog poziva ${i}`}
-                width={220}
-                height={120}
-                className="w-full h-28 object-cover"
-              />
-              <div className="p-4 flex flex-col flex-grow">
-                <span className="inline-block bg-pink-200 text-pink-800 text-xs font-semibold px-2 py-1 rounded-full mb-2">
-                  Javni poziv
-                </span>
-                <h3 className="text-sm font-semibold mb-2">Naziv poziva {i}</h3>
-                <div className="flex justify-between items-center text-xs mt-auto">
-                  <span className="text-gray-500">01.06.2025</span>
-                  <a href="#" className="text-blue-600 hover:underline">
-                    Više
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+     
 
       <div className="mt-8 flex flex-col md:flex-row justify-center items-center gap-6 bg-[#172a45]/30 rounded-xl p-4 shadow-inner">
         <img

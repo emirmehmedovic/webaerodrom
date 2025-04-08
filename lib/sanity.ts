@@ -20,7 +20,11 @@ export async function getAllNovosti() {
       title,
       "slug": slug.current,
       publishedAt,
-      category
+      category,
+      mainImage{
+        asset->{url},
+        alt
+      }
     }`
   )
 }
@@ -32,7 +36,11 @@ export async function getNovosti() {
       title,
       "slug": slug.current,
       publishedAt,
-      category
+      category,
+      mainImage{
+        asset->{url},
+        alt
+      }
     }`
   )
 }
