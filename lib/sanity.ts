@@ -24,6 +24,9 @@ export async function getAllNovosti() {
       mainImage{
         asset->{url},
         alt
+      },
+      pdfFile{
+        asset->{url}
       }
     }`
   )

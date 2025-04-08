@@ -202,7 +202,7 @@ export default async function Home() { // Make component async
         {/* "Pogledaj sve" Button */}
         {latestNovosti.length > 0 && (
           <div className="mt-8 text-center">
-            <Button asChild variant="outline" className="border-[#64ffda] text-[#64ffda] hover:bg-[#64ffda]/10 hover:text-[#64ffda]">
+            <Button asChild variant="outline" className="border-[#64ffda] text-[#64ffda] hover:bg-[#64ffda]/10 hover:text-[#64ffda] dark:text-[#64ffda] dark:border-[#64ffda] text-blue-600 border-blue-600 hover:border-blue-700 hover:text-blue-700">
               <Link href="/novosti">Pogledaj sve</Link>
             </Button>
           </div>

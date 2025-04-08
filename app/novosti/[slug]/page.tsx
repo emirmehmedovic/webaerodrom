@@ -18,6 +18,11 @@ interface Article {
     };
     alt?: string;
   };
+  pdfFile?: {
+    asset: {
+      url: string;
+    };
+  };
   body: any[]; // Portable Text blocks
 }
 
@@ -34,6 +39,9 @@ async function getData(slug: string): Promise<Article | null> {
       mainImage{
         asset->{url},
         alt
+      },
+      pdfFile{
+        asset->{url}
       },
       body
     }`,
@@ -94,6 +102,19 @@ export default async function NovostPage({ params }: { params: { slug: string } 
         {post.body && post.body.length > 0 && (
           <div className="prose prose-sm sm:prose-base md:prose-lg lg:prose-xl dark:prose-invert max-w-none break-words">
             <PortableText value={post.body} />
+          </div>
+        )}
+        {/* PDF Download */}
+        {post.pdfFile?.asset?.url && (
+          <div className="mt-6 text-center">
+            <a
+              href={post.pdfFile.asset.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-3 rounded-[10px] bg-[#64ffda] hover:bg-[#64ffda]/80 text-[#0a192f] font-semibold transition-colors shadow-md"
+            >
+              Otvori PDF dokument
+            </a>
           </div>
         )}
       </article>
