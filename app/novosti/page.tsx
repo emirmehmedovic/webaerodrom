@@ -31,7 +31,7 @@ export default async function NewsPage() {
           articles.map((article: any) => (
             <div key={article._id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 transition-all duration-300 hover:shadow-lg">
               <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
-                <Link href={`/novosti/${article.slug.current}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors">
+                <Link href={`/novosti/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors">
                   {article.title}
                 </Link>
               </h2>
