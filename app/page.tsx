@@ -6,12 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { Facebook, Instagram } from 'lucide-react';
-import { getNovosti } from '@/lib/sanity'; // Import getNovosti
+import { getNovosti, getCurrentDaySchedule } from '@/lib/sanity'; // Import getNovosti and getCurrentDaySchedule
 import Link from 'next/link'; // Import Link
 
 export default async function Home() { // Make component async
   const allNovosti = await getNovosti();
   const latestNovosti = allNovosti.slice(0, 4); // Get latest 4
+  const { departures, arrivals } = await getCurrentDaySchedule(); // Fetch today's schedule
 
   return (
     <div className="space-y-8">
@@ -77,7 +78,7 @@ export default async function Home() { // Make component async
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8">
         <div className="space-y-8">
           <div id="flights">
-            <FlightSchedule />
+            <FlightSchedule departures={departures} arrivals={arrivals} />
           </div>
           <BentoGrid />
         </div>

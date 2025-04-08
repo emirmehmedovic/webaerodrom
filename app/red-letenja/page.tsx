@@ -1,0 +1,170 @@
+import React from 'react';
+import { getFlightSchedules } from '../../lib/sanity';
+
+export const revalidate = 60;
+
+const bosnianWeekdays = [
+  'Ponedjeljak',
+  'Utorak',
+  'Srijeda',
+  'Četvrtak',
+  'Petak',
+  'Subota',
+  'Nedjelja',
+];
+
+function getDatesInMonth(month: string, year: number) {
+  const monthIndex = [
+    'Januar', 'Februar', 'Mart', 'April', 'Maj', 'Juni',
+    'Juli', 'August', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'
+  ].indexOf(month);
+
+  const date = new Date(year, monthIndex, 1);
+  const dates = [];
+
+  while (date.getMonth() === monthIndex) {
+    dates.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+
+  return dates;
+}
+
+export default async function RedLetenjaPage() {
+  const schedules = await getFlightSchedules();
+
+  if (!schedules || schedules.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <h1 className="text-2xl font-bold mb-4">Red letenja</h1>
+        <p>Trenutno nema dostupnih rasporeda letova.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-4 py-12 space-y-12">
+      <h1 className="text-3xl font-bold mb-8 text-center">Mjesečni red letenja</h1>
+
+      {schedules.map((schedule: any) => {
+        const dates = getDatesInMonth(schedule.month, schedule.year);
+
+        return (
+          <div key={schedule._id} className="space-y-8">
+            <h2 className="text-2xl font-semibold text-center mb-4">
+              {schedule.title} - {schedule.month} {schedule.year}
+            </h2>
+
+            {dates.map((dateObj: Date, idx: number) => {
+              const weekday = bosnianWeekdays[dateObj.getDay() === 0 ? 6 : dateObj.getDay() -1];
+              const daySchedule = schedule.weeklySchedule?.find((d: any) => d.day === weekday);
+
+              const departures = daySchedule?.flights?.filter((f: any) => f.type === 'odlazni') ?? [];
+              const arrivals = daySchedule?.flights?.filter((f: any) => f.type === 'dolazni') ?? [];
+
+              return (
+                <div key={idx} className="space-y-6 border rounded-xl p-6 shadow bg-gradient-to-br from-sky-900/30 to-blue-900/30 dark:from-[#0a192f]/50 dark:to-[#172a45]/50">
+                  <h3 className="text-xl font-bold mb-2 text-center">
+                    {dateObj.toLocaleDateString('bs-BA')} - {weekday}
+                  </h3>
+
+                  {/* Departures */}
+                  <>
+                    <h4 className="text-lg font-semibold mb-2">Odlazni letovi</h4>
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full border-separate border-spacing-y-2">
+                        <thead className="bg-blue-800 text-white">
+                          <tr>
+                            <th className="px-4 py-2 rounded-l-lg text-center">#</th>
+                            <th className="px-4 py-2 text-center w-24">Broj leta</th>
+                            <th className="px-4 py-2 text-center">Aviokompanija</th>
+                            <th className="px-4 py-2 text-center">Vrijeme polaska</th>
+                            <th className="px-4 py-2 rounded-r-lg text-center">Destinacija</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {departures.length > 0 ? departures.map((flight: any, fIdx: number) => (
+                            <tr key={fIdx} className="odd:bg-white/5 even:bg-white/10 hover:bg-white/20 text-gray-900 dark:text-white text-center rounded-lg border-b border-white/20"> {/* Set text color */}
+                              <td className="px-4 py-2">{fIdx + 1}</td>
+                              <td className="px-4 py-2">{flight.flightNumber}</td>
+                              <td className="px-4 py-2 flex flex-col items-center gap-1"> {/* Center align */}
+                                {flight.logo && flight.logo.asset && (
+                                  <img
+                                    src={flight.logo.asset.url}
+                                    alt="logo"
+                                    style={{
+                                      width: '50px',
+                                      height: '35px',
+                                      borderRadius: '10px',
+                                      objectFit: 'cover',
+                                    }}
+                                  />
+                                )}
+                                <span>{flight.airline}</span>
+                              </td>
+                              <td className="px-4 py-2">{flight.departureTime}</td>
+                              <td className="px-4 py-2">{flight.destination}</td>
+                            </tr>
+                          )) : (
+                            <tr>
+                              <td colSpan={5} className="px-4 py-2 text-center">Nema odlaznih letova.</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+
+                  {/* Arrivals */}
+                  <>
+                    <h4 className="text-lg font-semibold mb-2">Dolazni letovi</h4>
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full border-separate border-spacing-y-2">
+                        <thead className="bg-blue-800 text-white">
+                          <tr>
+                            <th className="px-4 py-2 rounded-l-lg text-center">#</th>
+                            <th className="px-4 py-2 text-center w-24">Broj leta</th>
+                            <th className="px-4 py-2 text-center">Aviokompanija</th>
+                            <th className="px-4 py-2 rounded-r-lg text-center">Vrijeme dolaska</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {arrivals.length > 0 ? arrivals.map((flight: any, fIdx: number) => (
+                            <tr key={fIdx} className="odd:bg-white/5 even:bg-white/10 hover:bg-white/20 text-gray-900 dark:text-white text-center rounded-lg border-b border-white/20"> {/* Set text color */}
+                              <td className="px-4 py-2">{fIdx + 1}</td>
+                              <td className="px-4 py-2">{flight.flightNumber}</td>
+                              <td className="px-4 py-2 flex flex-col items-center gap-1"> {/* Center align */}
+                                {flight.logo && flight.logo.asset && (
+                                  <img
+                                    src={flight.logo.asset.url}
+                                    alt="logo"
+                                    style={{
+                                      width: '50px',
+                                      height: '35px',
+                                      borderRadius: '10px',
+                                      objectFit: 'cover',
+                                    }}
+                                  />
+                                )}
+                                <span>{flight.airline}</span>
+                              </td>
+                              <td className="px-4 py-2">{flight.arrivalTime}</td>
+                            </tr>
+                          )) : (
+                            <tr>
+                              <td colSpan={4} className="px-4 py-2 text-center">Nema dolaznih letova.</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
