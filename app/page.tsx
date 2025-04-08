@@ -4,9 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { Facebook, Instagram } from 'lucide-react';
+import { getNovosti } from '@/lib/sanity'; // Import getNovosti
+import Link from 'next/link'; // Import Link
 
+export default async function Home() { // Make component async
+  const allNovosti = await getNovosti();
+  const latestNovosti = allNovosti.slice(0, 4); // Get latest 4
 
-export default function Home() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
@@ -134,40 +138,29 @@ export default function Home() {
       <section className="mt-12">
         <h2 className="text-2xl font-bold mb-6">Aktuelnosti</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[1, 2, 3, 4].map((i) => (
+          {latestNovosti.map((article: any) => (
             <div
-              key={i}
-              className="rounded-xl overflow-hidden shadow-2xl backdrop-blur-sm bg-gradient-to-br from-sky-100/30 to-blue-100/30 flex flex-col"
+              key={article._id}
+              className="rounded-xl overflow-hidden shadow-2xl backdrop-blur-sm bg-gradient-to-br from-sky-100/30 to-blue-100/30 flex flex-col dark:bg-[#172a45]/60 dark:border dark:border-[#64ffda]/30"
             >
-              <Image
-                src={
-                  i === 1
-                    ? "/images/i-4.png"
-                    : i === 2
-                    ? "/images/pexels-burak-karaduman-712806-1549326.jpg"
-                    : i === 3
-                    ? "/images/pexels-jonasvonwerne-1217111-2.jpg"
-                    : "/images/pexels-vlada-karpovich-7368308.jpg"
-                }
-                alt={`Naslovna slika članka ${i}`}
-                width={400}
-                height={200}
-                className="w-full h-48 object-cover"
-              />
+              {/* TODO: Add image from Sanity if available */}
+              {/* <Image ... /> */}
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-lg font-semibold mb-2">Naslov članka {i}</h3>
-                <p className="text-sm mb-4 flex-grow">
-                  Ovo je kratki excerpt članka broj {i}. Ukratko opisuje sadržaj članka i privlači pažnju čitatelja.
-                </p>
+                <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">{article.title}</h3>
+                {/* TODO: Add excerpt from Sanity if available */}
+                {/* <p className="text-sm mb-4 flex-grow">...</p> */}
                 <div className="flex justify-between items-center text-sm mt-auto">
-                  <span className="text-gray-500">01.06.2025</span>
-                  <a href="#" className="text-blue-600 hover:underline">
+                  <span className="text-gray-500 dark:text-gray-400">{new Date(article.publishedAt).toLocaleDateString('bs-BA')}</span>
+                  <Link href={`/novosti/${article.slug}`} className="text-blue-600 dark:text-[#64ffda] hover:underline">
                     Pročitaj više
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
+          {latestNovosti.length === 0 && (
+             <p className="text-center text-gray-500 dark:text-gray-400 md:col-span-2">Trenutno nema novosti.</p>
+          )}
         </div>
       </section>
 

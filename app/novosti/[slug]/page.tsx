@@ -29,11 +29,12 @@ export async function generateStaticParams() {
 }
 
 async function getData(slug: string): Promise<Article | null> {
+  // Query by the 'current' property of the slug field
   const article = await sanityClient.fetch(
     `*[_type == "novost" && slug.current == $slug][0]{
       _id,
       title,
-      slug,
+      "slug": slug.current, // Fetch slug string directly
       publishedAt,
       mainImage{
         asset->{url},
