@@ -1,14 +1,10 @@
 import React from 'react';
-import Link from 'next/link'; // Import Link
-import { Archive } from 'lucide-react'; // Import icon
-import { getSortedPostsData, PostData } from '@/lib/posts'; // Import fetching function and type
+import Link from 'next/link';
+import { Archive } from 'lucide-react';
+import { getPublicCalls } from '@/lib/sanity';
 
 export default async function ArchivedPublicCallsPage() {
-  // Fetch all public calls
-  const allPublicCalls = await getSortedPostsData('javni-pozivi');
-
-  // Filter for 'arhiva' status
-  const articles = allPublicCalls.filter(article => article.status === 'arhiva');
+  const articles = await getPublicCalls('javni-oglasi-arhivirani');
 
   return (
     <div className="container mx-auto px-4 py-12 space-y-16 relative overflow-hidden rounded-[15px]">
@@ -32,7 +28,7 @@ export default async function ArchivedPublicCallsPage() {
       {/* Articles List Section */}
       <section className="max-w-4xl mx-auto space-y-8 animate-fade-in-delay-1">
         {articles.length > 0 ? (
-          articles.map((article: PostData) => (
+          articles.map((article: any) => (
             <div key={article.id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 opacity-80 transition-all duration-300 hover:shadow-lg hover:opacity-90"> {/* Added opacity and hover */}
               <h2 className="text-2xl font-semibold mb-2 text-gray-700 dark:text-gray-400"> {/* Muted title */}
                  {/* Link to article page (needs to be created later) */}
