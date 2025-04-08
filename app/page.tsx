@@ -17,18 +17,53 @@ export default async function Home() { // Make component async
     <div className="space-y-8">
       {/* Hero Section */}
       <section className="relative min-h-[80vh] py-48 px-6 rounded-3xl bg-gradient-to-r from-[#0a192f] to-[#172a45] shadow-2xl overflow-hidden">
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-col items-center text-center">
           <h1 className="text-3xl md:text-5xl font-bold mb-6 text-white">
             Dobrodošli na<br />Međunarodni aerodrom<br /> Tuzla
           </h1>
-          <Button
-            variant="outline"
-            className="bg-[#172a45]/50 hover:bg-[#172a45] border-[#64ffda] text-[#64ffda] hover:text-[#64ffda]"
-            asChild
+          <form
+            action="/informacije-o-letovima"
+            method="get"
+            className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-[#64ffda]/50 shadow-lg max-w-2xl w-full mt-6"
           >
-            <a href="#flights">Provjeri status leta</a>
-          </Button>
+            <input
+              type="text"
+              placeholder="Unesite destinaciju ili broj leta"
+              className="flex-grow bg-transparent placeholder-gray-300 text-white focus:outline-none px-2"
+            />
+            <Button
+              type="submit"
+              className="rounded-full px-4 py-2 bg-[#64ffda] hover:bg-[#64ffda]/80 text-[#0a192f] font-semibold transition-colors"
+            >
+              Traži
+            </Button>
+          </form>
         </div>
+
+        {/* Icons row */}
+        <div className="relative z-10 mt-6 flex justify-center gap-4 text-white">
+          <a href="/red-letenja" className="flex flex-col items-center hover:text-[#64ffda] transition-colors bg-white/10 backdrop-blur-md rounded-[15px] px-2 py-2 shadow-lg text-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.5 19l19-7-19-7v6l15 1-15 1v6z" />
+            </svg>
+            <span className="text-sm">Red Letenja</span>
+          </a>
+          <a href="/parking" className="flex flex-col items-center hover:text-[#64ffda] transition-colors bg-white/10 backdrop-blur-md rounded-[15px] px-2 py-2 shadow-lg text-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4h16v16H4z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 8h4a2 2 0 110 4h-4V8z" />
+            </svg>
+            <span className="text-sm">Parking Info</span>
+          </a>
+          <a href="/web-check-in" className="flex flex-col items-center hover:text-[#64ffda] transition-colors bg-white/10 backdrop-blur-md rounded-[15px] px-2 py-2 shadow-lg text-xs">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4h16v16H4z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8M8 16h8M8 8h8" />
+            </svg>
+            <span className="text-sm">Web check in</span>
+          </a>
+        </div>
+
         <video
           src="/videos/Novi Hero.mp4"
           autoPlay
