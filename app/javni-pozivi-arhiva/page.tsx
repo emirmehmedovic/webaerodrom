@@ -1,3 +1,5 @@
+export const revalidate = 0;
+
 import React from 'react';
 import Link from 'next/link';
 import { Archive } from 'lucide-react';
