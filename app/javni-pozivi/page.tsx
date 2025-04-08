@@ -33,21 +33,20 @@ export default async function CurrentPublicCallsPage() {
           articles.map((article: any) => (
             <div key={article.id} className="p-6 rounded-[15px] shadow-xl bg-white/70 backdrop-blur-lg border border-gray-200/50 dark:bg-[#172a45]/60 dark:border-[#64ffda]/30 dark:shadow-[#64ffda]/10 transition-all duration-300 hover:shadow-lg">
               <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
-                 {/* Link to article page (needs to be created later) */}
-                 {/* <Link href={`/javni-pozivi/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors"> */}
+                 <Link href={`/javni-pozivi/${article.slug}`} className="hover:text-blue-600 dark:hover:text-[#64ffda] transition-colors">
                    {article.title}
-                 {/* </Link> */}
+                 </Link>
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 Objavljeno: {new Date(article.publishedAt).toLocaleDateString('bs-BA')}
               </p>
               {/* Add excerpt or image preview here later */}
               <p className="text-gray-700 dark:text-gray-300 text-sm">
-                Ovdje će ići kratki opis ili sadržaj javnog poziva...
+                {/* Ovdje će ići kratki opis ili sadržaj javnog poziva... */}
               </p>
-               {/* <Link href={`/javni-pozivi/${article.slug}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block font-medium">
+               <Link href={`/javni-pozivi/${article.slug}`} className="text-blue-600 dark:text-[#64ffda] hover:underline text-sm mt-2 inline-block font-medium">
                  Detaljnije...
-               </Link> */}
+               </Link>
             </div>
           ))
         ) : (

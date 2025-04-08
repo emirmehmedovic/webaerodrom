@@ -3,19 +3,51 @@ export const revalidate = 0;
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { Calendar, Megaphone, Archive } from 'lucide-react'; // Import relevant icons
-import { getPostData, getAllPostSlugs, PostData } from '@/lib/posts';
+import { Calendar, Megaphone, Archive } from 'lucide-react';
+import sanityClient from '@/lib/sanity'; // Import Sanity client
+import { PortableText } from '@portabletext/react'; // Import PortableText
 
-// Generate static paths for all public call posts at build time
-export async function generateStaticParams() {
-  const paths = getAllPostSlugs('javni-pozivi'); // Get slugs from the 'javni-pozivi' directory
-  return paths;
+interface PublicCall {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  publishedAt: string;
+  category: string; // 'javni-oglasi-aktivni' or 'javni-oglasi-arhivirani'
+  mainImage?: {
+    asset: {
+      url: string;
+    };
+    alt?: string;
+  };
+  body: any[]; // Portable Text blocks
 }
 
-// Fetch data for a specific post
-async function getData(slug: string): Promise<PostData | null> {
-  const postData = await getPostData('javni-pozivi', slug); // Fetch from 'javni-pozivi' directory
-  return postData;
+// Generate static paths for all public calls from Sanity
+export async function generateStaticParams() {
+  const slugs: { slug: string }[] = await sanityClient.fetch(
+    `*[_type == "novost" && (category == "javni-oglasi-aktivni" || category == "javni-oglasi-arhivirani") && defined(slug.current)]{ "slug": slug.current }`
+  );
+  return slugs.map((s) => ({ slug: s.slug }));
+}
+
+// Fetch data for a specific public call from Sanity
+async function getData(slug: string): Promise<PublicCall | null> {
+  const post = await sanityClient.fetch(
+    `*[_type == "novost" && slug.current == $slug && (category == "javni-oglasi-aktivni" || category == "javni-oglasi-arhivirani")][0]{
+      _id,
+      title,
+      slug,
+      publishedAt,
+      category,
+      mainImage{
+        asset->{url},
+        alt
+      },
+      body
+    }`,
+    { slug }
+  );
+  return post;
 }
 
 export default async function JavniPozivPage({ params }: { params: { slug: string } }) {
@@ -25,7 +57,7 @@ export default async function JavniPozivPage({ params }: { params: { slug: strin
     notFound(); // Return 404 if post not found
   }
 
-  const isArchived = post.status === 'arhiva';
+  const isArchived = post.category === 'javni-oglasi-arhivirani';
 
   return (
     <div className="container mx-auto px-4 py-12 space-y-12 relative overflow-hidden rounded-[15px]">
@@ -64,11 +96,11 @@ export default async function JavniPozivPage({ params }: { params: { slug: strin
         </header>
 
         {/* Optional Main Image */}
-        {post.mainImage && (
+        {post.mainImage?.asset?.url && (
           <div className="mb-8 relative h-64 md:h-80 rounded-lg overflow-hidden shadow-md">
             <Image
-              src={post.mainImage} // Assuming this is the direct URL or path from frontmatter
-              alt={post.alt || post.title} // Use alt text from frontmatter or fallback to title
+              src={post.mainImage.asset.url}
+              alt={post.mainImage.alt || post.title}
               fill
               style={{ objectFit: 'cover' }}
               priority // Prioritize loading the main image
@@ -77,17 +109,16 @@ export default async function JavniPozivPage({ params }: { params: { slug: strin
         )}
 
         {/* Content */}
-        {post.contentHtml && (
-          <div
-            className={`prose prose-sm md:prose-base dark:prose-invert max-w-none
+        {post.body && post.body.length > 0 && (
+           <div className={`prose prose-sm md:prose-base dark:prose-invert max-w-none
                        prose-headings:text-gray-800 dark:prose-headings:text-white
                        prose-p:text-gray-700 dark:prose-p:text-gray-300
                        prose-a:text-blue-600 dark:prose-a:text-[#64ffda] hover:prose-a:underline
                        prose-strong:text-gray-800 dark:prose-strong:text-white
-                       ${isArchived ? 'prose-p:text-gray-600 dark:prose-p:text-gray-400' : ''}`} // Mute text if archived
-            dangerouslySetInnerHTML={{ __html: post.contentHtml }}
-          />
-        )}
+                       ${isArchived ? 'prose-p:text-gray-600 dark:prose-p:text-gray-400' : ''}`}>
+             <PortableText value={post.body} />
+           </div>
+         )}
       </article>
     </div>
   );
