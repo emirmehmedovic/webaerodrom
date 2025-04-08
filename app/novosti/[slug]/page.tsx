@@ -21,12 +21,7 @@ interface Article {
   body: any[]; // Portable Text blocks
 }
 
-export async function generateStaticParams() {
-  const slugs: { slug: { current: string } }[] = await sanityClient.fetch(
-    `*[_type == "novost" && defined(slug.current)]{ slug }`
-  );
-  return slugs.map((s) => ({ slug: s.slug.current }));
-}
+
 
 async function getData(slug: string): Promise<Article | null> {
   // Query by the 'current' property of the slug field
@@ -51,7 +46,12 @@ export default async function NovostPage({ params }: { params: { slug: string } 
   const post = await getData(params.slug);
 
   if (!post) {
-    notFound(); // Return 404 if post not found
+    return (
+      <div className="p-8">
+        <h1 className="text-2xl font-bold mb-4">Nema članka za slug: {params.slug}</h1>
+        <p>Provjerite da li slug postoji u Sanity CMS-u i da li je publishan.</p>
+      </div>
+    );
   }
 
   return (

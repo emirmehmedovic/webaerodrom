@@ -137,6 +137,12 @@ export default async function Home() { // Make component async
       {/* Aktuelnosti Section */}
       <section className="mt-12">
         <h2 className="text-2xl font-bold mb-6">Aktuelnosti</h2>
+        <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">Broj novosti: {latestNovosti.length}</p>
+        <ul className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+          {latestNovosti.map((a: any) => (
+            <li key={a._id}>{a.title} ({a.category})</li>
+          ))}
+        </ul>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {latestNovosti.map((article: any) => (
             <div
