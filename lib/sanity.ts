@@ -27,7 +27,7 @@ export async function getAllNovosti() {
 
 export async function getNovosti() {
   return await sanityClient.fetch(
-    `*[_type == "novost" && defined(category) && category == "novost"] | order(publishedAt desc){
+    `*[_type == "novost" && defined(category) && category == "novost" && publishedAt <= now()] | order(publishedAt desc){
       _id,
       title,
       "slug": slug.current,
