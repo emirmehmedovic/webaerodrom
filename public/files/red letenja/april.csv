@@ -1,0 +1,131 @@
+Datum,Dan,Aviokompanija,Kod,Destinacija,Tip,Vrijeme
+30.03.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+30.03.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+30.03.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+30.03.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+31.03.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+31.03.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+31.03.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+31.03.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+31.03.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+31.03.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+31.03.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Dolazak,14:35
+31.03.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Polazak,13:35
+02.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+02.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+02.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+02.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+02.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+02.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+03.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+03.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+04.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Dolazak,10:10
+04.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Polazak,08:50
+04.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+04.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+04.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,12:25
+04.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:55
+04.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+04.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+06.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+06.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+06.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+06.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+07.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+07.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+07.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+07.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+07.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+07.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+07.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Dolazak,14:35
+07.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Polazak,13:35
+09.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+09.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+09.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+09.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+09.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+09.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+10.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+10.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+11.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Dolazak,10:10
+11.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Polazak,08:50
+11.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+11.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+11.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,12:25
+11.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:55
+11.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+11.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+13.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+13.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+13.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+13.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+14.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+14.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+14.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+14.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+14.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+14.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+14.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Dolazak,14:35
+14.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Polazak,13:35
+16.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+16.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+16.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+16.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+16.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+16.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+17.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+17.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+18.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Dolazak,10:10
+18.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Polazak,08:50
+18.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+18.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+18.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,12:25
+18.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:55
+18.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+18.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+20.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+20.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+20.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+20.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+21.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+21.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+21.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+21.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+21.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+21.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+21.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Dolazak,14:35
+21.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Polazak,13:35
+23.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+23.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+23.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+23.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+23.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+23.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+24.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+24.04.2025,Četvrtak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+25.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Dolazak,10:10
+25.04.2025,Petak,Pegasus,SAW,"Istanbul, Turska",Polazak,08:50
+25.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+25.04.2025,Petak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+25.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,12:25
+25.04.2025,Petak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:55
+25.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+25.04.2025,Petak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+27.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+27.04.2025,Nedjelja,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+27.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+27.04.2025,Nedjelja,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+28.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+28.04.2025,Ponedjeljak,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+28.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+28.04.2025,Ponedjeljak,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+28.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+28.04.2025,Ponedjeljak,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00
+28.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Dolazak,14:35
+28.04.2025,Ponedjeljak,AJet,SAW,"Istanbul, Turska",Polazak,13:35
+30.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Dolazak,09:55
+30.04.2025,Srijeda,Wizz Air,FMM,"Memmingen, Njemačka",Polazak,09:25
+30.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Dolazak,11:40
+30.04.2025,Srijeda,Wizz Air,DTM,"Dortmund, Njemačka",Polazak,11:10
+30.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Dolazak,12:30
+30.04.2025,Srijeda,Wizz Air,MLH,"Basel Mulhouse, Francuska",Polazak,12:00

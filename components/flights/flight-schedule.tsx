@@ -73,7 +73,7 @@ export function FlightSchedule({ departures, arrivals }: FlightScheduleProps) {
               </thead>
               <tbody>
                 {departures.length > 0 ? departures.map((flight, fIdx) => (
-                  <tr key={fIdx} className="odd:bg-white/5 even:bg-white/10 hover:bg-white/20 text-white text-center rounded-lg border-b border-white/20">
+                  <tr key={fIdx} className="odd:bg-white/5 even:bg-white/10 hover:bg-white/20 text-gray-900 dark:text-white text-center rounded-lg border-b border-white/20">
                     <td className="px-4 py-2">{fIdx + 1}</td>
                     <td className="px-4 py-2">{flight.flightNumber}</td>
                     <td className="px-4 py-2 flex flex-col items-center gap-1 text-gray-900 dark:text-white">
@@ -122,7 +122,7 @@ export function FlightSchedule({ departures, arrivals }: FlightScheduleProps) {
               </thead>
               <tbody>
                 {arrivals.length > 0 ? arrivals.map((flight, fIdx) => (
-                  <tr key={fIdx} className="odd:bg-white/5 even:bg-white/10 hover:bg-white/20 text-white text-center rounded-lg border-b border-white/20">
+                  <tr key={fIdx} className="odd:bg-white/5 even:bg-white/10 hover:bg-white/20 text-gray-900 dark:text-white text-center rounded-lg border-b border-white/20">
                     <td className="px-4 py-2">{fIdx + 1}</td>
                     <td className="px-4 py-2">{flight.flightNumber}</td>
                     <td className="px-4 py-2 flex flex-col items-center gap-1">
