@@ -78,7 +78,11 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
       const flightsData = await Promise.all(
         schedule.weeklySchedule.map(async (daySchedule: any) => {
           const flightReferences = daySchedule?.flights ?? [];
-          const flights = await Promise.all(flightReferences.map(fetchFlightTemplate));
+          const flights = await Promise.all(
+            flightReferences
+              .filter((ref: any) => ref && ref._ref)
+              .map(fetchFlightTemplate)
+          );
           return { day: daySchedule.day, flights };
         })
       );

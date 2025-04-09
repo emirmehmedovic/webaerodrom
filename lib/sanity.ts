@@ -24,7 +24,9 @@ export async function getFlightSchedules() {
       description,
       weeklySchedule[]{
         day,
-        flights[]{
+        flights[]->{
+          _id,
+          title,
           type,
           flightNumber,
           airline,
@@ -33,9 +35,7 @@ export async function getFlightSchedules() {
               url
             }
           },
-          departureTime,
-          arrivalTime,
-          destination
+          flightDetails
         }
       }
     }`
