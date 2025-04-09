@@ -93,7 +93,7 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
         return (
           <div
             key={idx}
-            className="space-y-6 border rounded-xl p-6 shadow bg-gradient-to-br from-sky-900/30 to-blue-900/30 dark:from-[#0a192f]/50 dark:to-[#172a45]/50"
+            className="space-y-6 p-6 shadow bg-gradient-to-br from-sky-900/30 to-blue-900/30 dark:from-[#0a192f]/50 dark:to-[#172a45]/50"
           >
             <h3 className="text-xl font-bold mb-2 text-center">
               {`${dateObj.getDate().toString().padStart(2, '0')}.${(dateObj.getMonth() + 1).toString().padStart(2, '0')}.${dateObj.getFullYear()}`} - {weekday}
