@@ -24,9 +24,7 @@ export async function getFlightSchedules() {
       description,
       weeklySchedule[]{
         day,
-        flights[]->{
-          _id,
-          title,
+        flights[]{
           type,
           flightNumber,
           airline,
@@ -35,74 +33,13 @@ export async function getFlightSchedules() {
               url
             }
           },
-          flightDetails
+          departureTime,
+          arrivalTime,
+          destination
         }
       }
     }`
   )
-}
-
-export async function updateFlightSchedule(documentId: string, weeklySchedule: any[]) {
-  try {
-    await sanityClient.patch(documentId)
-      .set({ weeklySchedule })
-      .commit();
-    return true;
-  } catch (error) {
-    console.error('Error updating flight schedule:', error);
-    return false;
-  }
-}
-
-import Papa from 'papaparse';
-
-export function processFlightScheduleCSV(csvContent: string): Promise<any[]> {
-  return new Promise((resolve, reject) => {
-    try {
-      Papa.parse(csvContent as any, {
-        header: true,
-        skipEmptyLines: true,
-        complete: (results: Papa.ParseResult<{ [key: string]: string }>) => {
-        if (results.errors.length > 0) {
-          reject(results.errors);
-        } else {
-          const parsedData = results.data;
-          console.log('Parsed CSV Data:', parsedData); // Logging parsed data
-          const weeklySchedule: { [key: string]: { day: string; flights: any[] } } = {};
-
-          parsedData.forEach((row: { [key: string]: string }) => {
-            const day = row.Day?.trim() ?? '';
-            if (!weeklySchedule[day]) {
-              weeklySchedule[day] = { day, flights: [] };
-            }
-
-          const type = row.Tip?.trim() ?? '';
-          const time = row.Vrijeme?.trim() ?? '';
-          const flight = {
-            type: type === 'Polazak' ? 'odlazni' : type === 'Dolazak' ? 'dolazni' : '',
-            flightNumber: row.Kod?.trim() ?? '',
-            airline: row.Aviokompanija?.trim() ?? '',
-            departureTime: type === 'odlazni' ? time : '',
-            arrivalTime: type === 'dolazni' ? time : '',
-            destination: type === 'odlazni' ? row.Destinacija?.trim() ?? '' : '',
-            origin: type === 'dolazni' ? row.Destinacija?.trim() ?? '' : '',
-          };
-
-            weeklySchedule[day].flights.push(flight);
-          });
-
-          // Convert weeklySchedule object to array
-          const weeklyScheduleArray = Object.values(weeklySchedule);
-          console.log('Processed Weekly Schedule:', weeklyScheduleArray); // Logging processed schedule
-
-          resolve(weeklyScheduleArray);
-        }
-      },
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
 }
 
 // Helper function to get current date details
