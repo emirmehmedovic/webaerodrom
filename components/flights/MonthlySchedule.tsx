@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { PlaneTakeoff, PlaneLanding } from "lucide-react";
+import { Button } from "../ui/button"; // Corrected import path
 
 const bosnianWeekdays = [
   "Ponedjeljak",
@@ -57,23 +58,25 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
       </h2>
 
       <div className="flex justify-center gap-4 mb-4">
-        <button
+        <Button
+          variant="outline"
           onClick={() => setCurrentWeek((w) => Math.max(0, w - 1))}
           disabled={currentWeek === 0}
-          className="px-4 py-2 bg-blue-700 text-white rounded disabled:opacity-50"
+          className="disabled:opacity-50"
         >
           Prethodna sedmica
-        </button>
+        </Button>
         <span className="self-center">
           Sedmica {currentWeek + 1} / {weeksCount}
         </span>
-        <button
+        <Button
+          variant="outline"
           onClick={() => setCurrentWeek((w) => Math.min(weeksCount - 1, w + 1))}
           disabled={currentWeek === weeksCount - 1}
-          className="px-4 py-2 bg-blue-700 text-white rounded disabled:opacity-50"
+          className="disabled:opacity-50"
         >
           Sljedeća sedmica
-        </button>
+        </Button>
       </div>
 
       {weekDates.map((dateObj: Date, idx: number) => {
@@ -90,10 +93,14 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
         const arrivals =
           daySchedule?.flights?.filter((f: any) => f.type === "dolazni") ?? [];
 
+        // Sort flights by time
+        departures.sort((a: any, b: any) => (a.departureTime || '').localeCompare(b.departureTime || ''));
+        arrivals.sort((a: any, b: any) => (a.arrivalTime || '').localeCompare(b.arrivalTime || ''));
+
         return (
           <div
             key={idx}
-            className="space-y-6 p-6 shadow bg-gradient-to-br from-sky-900/30 to-blue-900/30 dark:from-[#0a192f]/50 dark:to-[#172a45]/50"
+            className="space-y-6 rounded-xl p-6 shadow bg-gradient-to-br from-sky-900/30 to-blue-900/30 dark:from-[#0a192f]/50 dark:to-[#172a45]/50"
           >
             <h3 className="text-xl font-bold mb-2 text-center">
               {`${dateObj.getDate().toString().padStart(2, '0')}.${(dateObj.getMonth() + 1).toString().padStart(2, '0')}.${dateObj.getFullYear()}`} - {weekday}
@@ -101,8 +108,8 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
 
             {/* Departures */}
             <>
-              <h4 className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
-                <PlaneTakeoff className="h-5 w-5" /> Odlazni letovi
+              <h4 className="text-xl font-semibold mb-2 flex items-center justify-center gap-2">
+                <PlaneTakeoff className="h-6 w-6" /> Odlazni letovi
               </h4>
               <div className="overflow-x-auto">
                 <table className="min-w-full border-separate border-spacing-y-2">
@@ -164,8 +171,8 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
 
             {/* Arrivals */}
             <>
-              <h4 className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
-                <PlaneLanding className="h-5 w-5" /> Dolazni letovi
+              <h4 className="text-xl font-semibold mb-2 flex items-center justify-center gap-2">
+                <PlaneLanding className="h-6 w-6" /> Dolazni letovi
               </h4>
               <div className="overflow-x-auto">
                 <table className="min-w-full border-separate border-spacing-y-2">
@@ -227,6 +234,31 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
           </div>
         );
       })}
+
+      {/* Duplicate Pagination at the bottom */}
+      {weeksCount > 1 && (
+        <div className="flex justify-center gap-4 mt-8">
+          <Button
+            variant="outline"
+            onClick={() => setCurrentWeek((w) => Math.max(0, w - 1))}
+            disabled={currentWeek === 0}
+            className="disabled:opacity-50"
+          >
+            Prethodna sedmica
+          </Button>
+          <span className="self-center">
+            Sedmica {currentWeek + 1} / {weeksCount}
+          </span>
+          <Button
+            variant="outline"
+            onClick={() => setCurrentWeek((w) => Math.min(weeksCount - 1, w + 1))}
+            disabled={currentWeek === weeksCount - 1}
+            className="disabled:opacity-50"
+          >
+            Sljedeća sedmica
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
