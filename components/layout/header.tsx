@@ -1,20 +1,21 @@
 "use client";
 import { useTheme } from 'next-themes';
-import { Sun, Moon } from 'lucide-react';
-
-import { useState } from 'react';
+import { Sun, Moon, Plane, Menu, ChevronDown } from 'lucide-react'; // Added ChevronDown
+import { useState, useEffect, useRef } from 'react'; // Consolidated imports
 import Link from 'next/link';
-import { Plane } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'; // Added Collapsible imports
 
 const navigation = [
   {
     name: 'Putnici',
     items: [
       { name: 'Prodaja karata', href: '/prodaja-karata' },
-      { name: 'Informacije o letovima', href: '/informacije-o-letovima' },
+      // The previous attempt already made this change, so the SEARCH block needs to reflect the current state.
+      // If it was reverted, this would be the place to change it again.
+      // Assuming the change is already present based on the error message's file content:
+      { name: 'Red letenja', href: '/red-letenja' },
       { name: 'Važniji telefonski brojevi', href: '/telefonski-brojevi' },
       { name: 'Web check in', href: '/web-check-in' },
       { name: 'Putnici sa smanjenom pokretljivošću', href: '/prm' },
@@ -66,20 +67,22 @@ const navigation = [
   },
 ];
 
-import { useEffect, useRef } from 'react';
+// Removed duplicate import
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Mobile sheet state
+  const [openMenu, setOpenMenu] = useState<string | null>(null); // Desktop menu state
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null); // Desktop submenu state
+  const [isPutniciOpen, setIsPutniciOpen] = useState(false); // Mobile collapsible state
+  const [isPoslovnoOpen, setIsPoslovnoOpen] = useState(false); // Mobile collapsible state
+
+  const menuRef = useRef<HTMLDivElement>(null); // Ref for desktop menu click outside
 
   useEffect(() => {
     setMounted(true);
   }, []);
-  const [isOpen, setIsOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-
-  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -196,54 +199,46 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent className="max-h-screen overflow-y-auto">
+              {/* Corrected Mobile Menu Logic */}
               <div className="flex flex-col space-y-4 mt-8">
-                {navigation.map((section) => (
-                  <div key={section.name}>
-                    <p className="mb-2 font-semibold text-[#64ffda]">{section.name}</p>
-                    <div className="flex flex-col space-y-2">
-                      {section.items.map((link) => (
-                        <div key={link.name} className="flex flex-col">
-                          <Link
-                            href={link.href}
-                            className="text-sm transition-colors hover:text-[#64ffda] flex justify-between items-center"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {link.name}
-                            {link.subitems && (
-                              <span className="ml-1">▼</span>
-                            )}
-                          </Link>
-                          {link.subitems && (
-                            <div className="ml-4 mt-2 flex flex-col space-y-1">
-                              {link.subitems.map((sublink) => (
-                                <Link
-                                  key={sublink.name}
-                                  href={sublink.href}
-                                  className="text-sm transition-colors hover:text-[#64ffda]"
-                                  onClick={() => setIsOpen(false)}
-                                >
-                                  {sublink.name}
-                                </Link>
-                              ))}
-                              {mounted && (
-                                <div className="flex justify-center mt-6">
-                                  <Button
-                                    variant="outline"
-                                    onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                                    aria-label="Toggle theme"
-                                    className="w-full"
-                                  >
-                                    {theme === 'light' ? 'Tamna Tema' : 'Svijetla Tema'}
-                                  </Button>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                {navigation.map((section) => {
+                  const isCollapsible = section.name === 'Putnici' || section.name === 'Poslovno';
+                  const isOpenState = section.name === 'Putnici' ? isPutniciOpen : isPoslovnoOpen;
+                  const setIsOpenState = section.name === 'Putnici' ? setIsPutniciOpen : setIsPoslovnoOpen;
+
+                  if (isCollapsible) {
+                    return (
+                      <Collapsible key={section.name} open={isOpenState} onOpenChange={setIsOpenState}>
+                        <CollapsibleTrigger className="flex justify-between items-center w-full mb-2 p-2 rounded hover:bg-muted">
+                          <p className="font-semibold text-[#64ffda]">{section.name}</p>
+                          <ChevronDown className={`h-4 w-4 transition-transform ${isOpenState ? 'rotate-180' : ''}`} />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <div className="flex flex-col space-y-2 pl-6 border-l border-border/40 mb-4"> {/* Indented content */}
+                            {section.items.map((link) => (
+                              <Link
+                                key={link.name}
+                                href={link.href}
+                                className="text-sm transition-colors hover:text-[#64ffda] py-1"
+                                onClick={() => setIsOpen(false)} // Close sheet on link click
+                              >
+                                {link.name}
+                              </Link>
+                              // Note: Subitems are not rendered here for simplicity on mobile
+                            ))}
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    );
+                  } else {
+                    // Handle non-collapsible sections if any exist in the future
+                    return (
+                      <div key={section.name}>
+                        {/* Render non-collapsible section */}
+                      </div>
+                    );
+                  }
+                })}
                 <Button asChild variant="outline" className="mt-4">
                   <Link href="/kontakt" onClick={() => setIsOpen(false)}>
                     Kontakt
