@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { PlaneTakeoff, PlaneLanding } from "lucide-react";
 
 const bosnianWeekdays = [
   "Ponedjeljak",
@@ -100,10 +101,12 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
 
             {/* Departures */}
             <>
-              <h4 className="text-lg font-semibold mb-2">Odlazni letovi</h4>
+              <h4 className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
+                <PlaneTakeoff className="h-5 w-5" /> Odlazni letovi
+              </h4>
               <div className="overflow-x-auto">
                 <table className="min-w-full border-separate border-spacing-y-2">
-                  <thead className="bg-blue-800 text-white">
+                  <thead className="bg-sky-700 text-white">
                     <tr>
                       <th className="px-4 py-2 rounded-l-lg text-center">#</th>
                       <th className="px-4 py-2 text-center w-24">Broj leta</th>
@@ -161,10 +164,12 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
 
             {/* Arrivals */}
             <>
-              <h4 className="text-lg font-semibold mb-2">Dolazni letovi</h4>
+              <h4 className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
+                <PlaneLanding className="h-5 w-5" /> Dolazni letovi
+              </h4>
               <div className="overflow-x-auto">
                 <table className="min-w-full border-separate border-spacing-y-2">
-                  <thead className="bg-blue-800 text-white">
+                  <thead className="bg-emerald-700 text-white">
                     <tr>
                       <th className="px-4 py-2 rounded-l-lg text-center">#</th>
                       <th className="px-4 py-2 text-center w-24">Broj leta</th>
@@ -173,7 +178,7 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
                         Vrijeme dolaska
                       </th>
                       <th className="px-4 py-2 rounded-r-lg text-center">
-                        Destinacija
+                        Porijeklo
                       </th>
                     </tr>
                   </thead>
