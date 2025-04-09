@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'; // Added Collapsible imports
+import LanguageSwitcher from '@/components/language-switcher';
 
 const navigation = [
   {
@@ -173,22 +174,26 @@ export default function Header() {
               </div>
             ))}
           </div>
-          <Button asChild variant="outline" className="ml-4">
-            <Link href="/kontakt">Kontakt</Link>
-          </Button>
+          <div className="flex items-center space-x-2 ml-auto pr-4">
+            {mounted && (
+              <LanguageSwitcher />
+            )}
+            <Button asChild variant="outline">
+              <Link href="/kontakt">Kontakt</Link>
+            </Button>
+            {mounted && (
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+              </Button>
+            )}
+          </div>
         </div>
 
-        {mounted && (
-          <Button
-            variant="outline"
-            size="icon"
-            className="ml-2 md:inline-flex hidden"
-            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            aria-label="Toggle theme"
-          >
-            {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-          </Button>
-        )}
  
         {/* Mobile Navigation */}
         <div className="flex flex-1 justify-end md:hidden">
@@ -210,7 +215,8 @@ export default function Header() {
                     return (
                       <Collapsible key={section.name} open={isOpenState} onOpenChange={setIsOpenState}>
                         <CollapsibleTrigger className="flex justify-between items-center w-full mb-2 p-2 rounded hover:bg-muted">
-                          <p className="font-semibold text-[#64ffda]">{section.name}</p>
+                          {/* Removed text-[#64ffda] for better light theme contrast */}
+                          <p className="font-semibold">{section.name}</p>
                           <ChevronDown className={`h-4 w-4 transition-transform ${isOpenState ? 'rotate-180' : ''}`} />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
@@ -244,7 +250,10 @@ export default function Header() {
                     Kontakt
                   </Link>
                 </Button>
-                <div className="flex justify-center mt-6">
+                <div className="flex justify-center mt-4">
+                  <LanguageSwitcher />
+                </div>
+                <div className="flex justify-center mt-4">
                   <Button
                     variant="outline"
                     onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}

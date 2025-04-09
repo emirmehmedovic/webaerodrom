@@ -1,7 +1,8 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Armchair, Luggage, FileText, MapPin, AlertCircle, HelpCircle } from "lucide-react"
+// Added ClipboardCheck icon
+import { Armchair, Luggage, FileText, MapPin, AlertCircle, HelpCircle, ClipboardCheck } from "lucide-react"
 import Link from "next/link"
 
 const bentoItems = [
@@ -20,11 +21,11 @@ const bentoItems = [
     styleClass: "bg-blue-900/20 backdrop-blur-lg"
   },
   {
-    title: "Javne nabavke",
-    description: "Pregled aktuelnih javnih nabavki",
-    icon: FileText,
-    href: "/javne-nabavke",
-    styleClass: "bg-indigo-900/20 backdrop-blur-xl"
+    title: "Prijava na let", // Updated title
+    description: "Informacije o prijavi na let", // Updated description
+    icon: ClipboardCheck, // Updated icon
+    href: "/prijava-na-let", // Updated href
+    styleClass: "bg-indigo-900/20 backdrop-blur-xl" // Kept style for now
   },
   {
     title: "Kako do nas",
@@ -44,13 +45,14 @@ const bentoItems = [
     title: "Važne informacije",
     description: "Aktuelne informacije za putnike",
     icon: AlertCircle,
-    href: "/informacije",
+    href: "/faq", // Updated link to FAQ page
     styleClass: "bg-pink-900/20 backdrop-blur-lg"
   }
 ]
 
 export function BentoGrid() {
   return (
+    // Removed negative margin and padding fix - padding handled by parent in app/page.tsx
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
       {bentoItems.map((item) => {
         const Icon = item.icon

@@ -1,0 +1,10 @@
+{
+  "Header": {
+    "flightSchedule": "Flight Schedule",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "Index": {
+    "title": "Welcome to the Airport"
+  }
+}
