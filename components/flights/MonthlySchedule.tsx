@@ -1,25 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import sanityClient from '../../lib/sanity';
-
-const fetchFlightTemplate = async (flightReference: any) => {
-  const flight = await sanityClient.fetch(
-    `*[_id == $id][0] {
-      type,
-      flightNumber,
-      airline,
-      logo {
-        asset->{
-          url
-        }
-      },
-      flightDetails
-    }`,
-    { id: flightReference._ref }
-  );
-  return flight;
-};
+import React, { useState } from "react";
 
 const bosnianWeekdays = [
   "Ponedjeljak",
@@ -67,29 +48,6 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
   const startIdx = currentWeek * 7;
   const endIdx = startIdx + 7;
   const weekDates = dates.slice(startIdx, endIdx);
-  const [flightsData, setFlightsData] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchFlights = async () => {
-      if (!schedule?.weeklySchedule) {
-        setFlightsData([]);
-        return;
-      }
-      const flightsData = await Promise.all(
-        schedule.weeklySchedule.map(async (daySchedule: any) => {
-          const flightReferences = daySchedule?.flights ?? [];
-          const flights = await Promise.all(
-            flightReferences
-              .filter((ref: any) => ref && ref._ref)
-              .map(fetchFlightTemplate)
-          );
-          return { day: daySchedule.day, flights };
-        })
-      );
-      setFlightsData(flightsData);
-    };
-    fetchFlights();
-  }, [schedule]);
 
   return (
     <div className="space-y-8">
@@ -122,12 +80,14 @@ export default function MonthlySchedule({ schedule }: { schedule: any }) {
           bosnianWeekdays[
             dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1
           ];
-        const daySchedule = flightsData.find(
+        const daySchedule = schedule.weeklySchedule?.find(
           (d: any) => d.day === weekday
         );
 
-        const departures = daySchedule?.flights.filter((f: any) => f.type === "odlazni") ?? [];
-        const arrivals = daySchedule?.flights.filter((f: any) => f.type === "dolazni") ?? [];
+        const departures =
+          daySchedule?.flights?.filter((f: any) => f.type === "odlazni") ?? [];
+        const arrivals =
+          daySchedule?.flights?.filter((f: any) => f.type === "dolazni") ?? [];
 
         return (
           <div
