@@ -7,42 +7,40 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'; // Added Collapsible imports
 import LanguageSwitcher from '@/components/language-switcher';
+import { useTranslations } from 'next-intl';
 
 const navigation = [
   {
-    name: 'Putnici',
+    key: 'passengers',
     items: [
-      { name: 'Prodaja karata', href: '/prodaja-karata' },
-      // The previous attempt already made this change, so the SEARCH block needs to reflect the current state.
-      // If it was reverted, this would be the place to change it again.
-      // Assuming the change is already present based on the error message's file content:
-      { name: 'Red letenja', href: '/red-letenja' },
-      { name: 'Važniji telefonski brojevi', href: '/telefonski-brojevi' },
-      { name: 'Web check in', href: '/web-check-in' },
-      { name: 'Putnici sa smanjenom pokretljivošću', href: '/prm' },
-      { name: 'Korisni savjeti', href: '/savjeti' },
-      { name: 'Česta pitanja', href: '/faq' }, // Added FAQ link
-      { name: 'Izgubili ste prtljag', href: '/izgubljeni-prtljag' },
-      { name: 'Prijava na let / Check in', href: '/prijava-na-let' },
-      { name: 'Kako do nas', href: '/kako-do-nas' },
-      { name: 'Parking', href: '/parking' },
-      { name: 'Internet', href: '/internet' },
-      { name: 'Duty free shop', href: '/duty-free' },
-      { name: 'Ugostiteljska ponuda', href: '/ugostiteljska-ponuda' },
-      { name: 'Mjenjačnice', href: '/mjenjacnice' },
-      { name: 'Bankomati', href: '/bankomati' },
-      { name: 'Trgovine', href: '/trgovine' },
-      { name: 'Rent a car', href: '/rent-a-car' },
+      { name: 'ticketSales', href: '/prodaja-karata' },
+      { name: 'flightSchedule', href: '/red-letenja' },
+      { name: 'importantPhones', href: '/telefonski-brojevi' },
+      { name: 'webCheckIn', href: '/web-check-in' },
+      { name: 'reducedMobility', href: '/prm' },
+      { name: 'usefulTips', href: '/savjeti' },
+      { name: 'faqPage', href: '/faq' },
+      { name: 'lostBaggage', href: '/izgubljeni-prtljag' },
+      { name: 'checkInPage', href: '/prijava-na-let' },
+      { name: 'howToReachUs', href: '/kako-do-nas' },
+      { name: 'parking', href: '/parking' },
+      { name: 'internet', href: '/internet' },
+      { name: 'dutyFree', href: '/duty-free' },
+      { name: 'hospitality', href: '/ugostiteljska-ponuda' },
+      { name: 'exchangeOffices', href: '/mjenjacnice' },
+      { name: 'atms', href: '/bankomati' },
+      { name: 'shops', href: '/trgovine' },
+      { name: 'rentACar', href: '/rent-a-car' },
     ],
   },
   {
-    name: 'Poslovno',
+    key: 'business',
     items: [
-      { name: 'Cjenovnik', href: '/cjenovnik' },
-      { name: 'Konferencijska sala', href: '/konferencijska-sala' },
-      { name: 'Instrukcije o zakupu prostora', href: '/zakup-prostora' },
+      { name: 'priceList', href: '/cjenovnik' },
+      { name: 'conferenceHall', href: '/konferencijska-sala' },
+      { name: 'spaceRentalInstructions', href: '/zakup-prostora' },
       {
-        name: 'Javne nabavke',
+        name: 'publicProcurements',
         href: '/javne-nabavke',
         subitems: [
           { name: 'Pravilnik javnih nabavki', href: '/pravilnik-javne-nabavke' },
@@ -72,6 +70,7 @@ const navigation = [
 
 export default function Header() {
   const { theme, setTheme } = useTheme();
+  const t = useTranslations('Header');
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false); // Mobile sheet state
   const [openMenu, setOpenMenu] = useState<string | null>(null); // Desktop menu state
@@ -110,22 +109,22 @@ export default function Header() {
         <div ref={menuRef} className="hidden md:flex md:flex-1 md:items-center md:justify-between">
           <div className="ml-14 flex items-center space-x-6">
             {navigation.map((section) => (
-              <div key={section.name} className="relative">
+              <div key={section.key} className="relative">
                 <button
                   className={`text-base font-semibold px-4 py-2 rounded-lg backdrop-blur-md transition-all hover:bg-white/20 hover:text-[#64ffda] ${
-                    section.name === 'Putnici'
+                    section.key === 'passengers'
                       ? 'bg-white/5'
-                      : section.name === 'Poslovno'
+                      : section.key === 'business'
                       ? 'bg-white/10'
                       : ''
                   }`}
                   onClick={() =>
-                    setOpenMenu(openMenu === section.name ? null : section.name)
+                    setOpenMenu(openMenu === section.key ? null : section.key)
                   }
                 >
-                  {section.name}
+                  {t(section.key)}
                 </button>
-                {openMenu === section.name && (
+                {openMenu === section.key && (
                   <div className="absolute left-0 mt-2 w-[600px] max-h-[400px] overflow-y-auto grid grid-cols-3 gap-4 rounded-xl bg-background/90 backdrop-blur-lg border border-border/40 shadow-2xl p-6 z-50">
                     {section.items.map((link) => (
                       <div key={link.name} className="relative">
@@ -139,7 +138,7 @@ export default function Header() {
                             }}
                             className="block w-full text-left px-3 py-2 text-sm rounded hover:bg-[#172a45]/50 hover:text-[#64ffda] transition-colors flex items-center justify-between"
                           >
-                            {link.name}
+                            {t(link.name)}
                             <span className="ml-1">▼</span>
                           </button>
                         ) : (
@@ -149,7 +148,7 @@ export default function Header() {
                             className="block w-full text-left px-3 py-2 text-sm rounded hover:bg-[#172a45]/50 hover:text-[#64ffda] transition-colors"
                             onClick={() => { setOpenMenu(null); setOpenSubmenu(null); }} // Close menu on click
                           >
-                            {link.name}
+                            {t(link.name)}
                           </Link>
                         )}
                         {/* Submenu rendering logic (only if subitems exist) */}
@@ -160,9 +159,9 @@ export default function Header() {
                                 key={sublink.name}
                                 href={sublink.href}
                                 className="block px-3 py-2 text-sm rounded hover:bg-[#172a45]/50 hover:text-[#64ffda] transition-colors"
-                                onClick={() => { setOpenMenu(null); setOpenSubmenu(null); }} // Close menu on click
+                                onClick={() => { setOpenMenu(null); setOpenSubmenu(null); }}
                               >
-                                {sublink.name}
+                                {t(sublink.name)}
                               </Link>
                             ))}
                           </div>
@@ -207,16 +206,16 @@ export default function Header() {
               {/* Corrected Mobile Menu Logic */}
               <div className="flex flex-col space-y-4 mt-8">
                 {navigation.map((section) => {
-                  const isCollapsible = section.name === 'Putnici' || section.name === 'Poslovno';
-                  const isOpenState = section.name === 'Putnici' ? isPutniciOpen : isPoslovnoOpen;
-                  const setIsOpenState = section.name === 'Putnici' ? setIsPutniciOpen : setIsPoslovnoOpen;
+                  const isCollapsible = section.key === 'passengers' || section.key === 'business';
+                  const isOpenState = section.key === 'passengers' ? isPutniciOpen : isPoslovnoOpen;
+                  const setIsOpenState = section.key === 'passengers' ? setIsPutniciOpen : setIsPoslovnoOpen;
 
                   if (isCollapsible) {
                     return (
-                      <Collapsible key={section.name} open={isOpenState} onOpenChange={setIsOpenState}>
+                      <Collapsible key={section.key} open={isOpenState} onOpenChange={setIsOpenState}>
                         <CollapsibleTrigger className="flex justify-between items-center w-full mb-2 p-2 rounded hover:bg-muted">
                           {/* Removed text-[#64ffda] for better light theme contrast */}
-                          <p className="font-semibold">{section.name}</p>
+                          <p className="font-semibold">{t(section.key)}</p>
                           <ChevronDown className={`h-4 w-4 transition-transform ${isOpenState ? 'rotate-180' : ''}`} />
                         </CollapsibleTrigger>
                         <CollapsibleContent>
@@ -226,9 +225,9 @@ export default function Header() {
                                 key={link.name}
                                 href={link.href}
                                 className="text-sm transition-colors hover:text-[#64ffda] py-1"
-                                onClick={() => setIsOpen(false)} // Close sheet on link click
+                                onClick={() => setIsOpen(false)}
                               >
-                                {link.name}
+                                {t(link.name)}
                               </Link>
                               // Note: Subitems are not rendered here for simplicity on mobile
                             ))}
@@ -239,7 +238,7 @@ export default function Header() {
                   } else {
                     // Handle non-collapsible sections if any exist in the future
                     return (
-                      <div key={section.name}>
+                      <div key={section.key}>
                         {/* Render non-collapsible section */}
                       </div>
                     );
@@ -247,7 +246,7 @@ export default function Header() {
                 })}
                 <Button asChild variant="outline" className="mt-4">
                   <Link href="/kontakt" onClick={() => setIsOpen(false)}>
-                    Kontakt
+                    {t('contact')}
                   </Link>
                 </Button>
                 <div className="flex justify-center mt-4">
