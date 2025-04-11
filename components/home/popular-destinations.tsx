@@ -99,9 +99,9 @@ export default function PopularDestinations() {
 
   return (
     <section className="container mx-auto px-4 py-12">
-      <h2 className="mb-8 text-center text-3xl font-bold text-blue-900">
-      Destinacije
-      </h2>
+<h2 className="mb-8 text-center text-3xl font-bold text-blue-900 dark:text-white">
+  Destinacije
+</h2>
       {/* Increased height again from h-[600px] to h-[700px] */}
       <div className="relative h-[700px] w-full overflow-hidden rounded-[10px]">
         {/* Background Image */}

@@ -9,6 +9,7 @@ import { Facebook, Instagram } from 'lucide-react';
 import { getNovosti, getCurrentDaySchedule } from '@/lib/sanity'; // Import getNovosti and getCurrentDaySchedule
 import Link from 'next/link'; // Import Link
 import PopularDestinations from '@/components/home/popular-destinations'; // Import the new component
+import TravelBentoGrid from '@/components/home/travel-bento-grid'; // Import the new travel bento grid
 
 export default async function Home() { // Make component async
   const allNovosti = await getNovosti();
@@ -18,8 +19,9 @@ export default async function Home() { // Make component async
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] py-48 px-6 rounded-3xl bg-gradient-to-r from-[#0a192f] to-[#172a45] shadow-2xl overflow-hidden">
-        <div className="relative z-10 flex flex-col items-center text-center">
+      {/* Changed pb-32 to pb-40 */}
+      <section className="relative min-h-[80vh] px-6 pb-8 rounded-3xl bg-gradient-to-r from-[#0a192f] to-[#172a45] shadow-2xl overflow-hidden flex flex-col justify-end items-center">
+        <div className="relative z-10 flex flex-col items-center text-center mt-8">
           <h1 className="text-3xl md:text-5xl font-bold mb-6 text-white">
             Dobrodošli na<br />Međunarodni aerodrom<br /> Tuzla
           </h1>
@@ -66,12 +68,13 @@ export default async function Home() { // Make component async
           </a>
         </div>
 
-        <video
-          src="/videos/Novi Hero.mp4"
-          autoPlay
-          muted
-          loop
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-50"
+        <Image
+          src="/images/hero1.png"
+          alt="Hero Background"
+          layout="fill" // Use layout="fill" to cover the parent container
+          objectFit="cover" // Equivalent to object-cover
+          className="absolute inset-0 z-0 opacity-50" // Keep positioning and opacity
+          priority // Prioritize loading for LCP
         />
       </section>
 

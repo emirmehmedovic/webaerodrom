@@ -100,10 +100,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center">
-        <Link href="/" className="flex items-center space-x-2 ml-6">
-          <Plane className="h-6 w-6 text-[#64ffda]" />
-          <span className="font-bold text-xl">Aerodrom Tuzla</span>
-        </Link>
+<Link href="/" className="flex items-center space-x-2 ml-6">
+  <img src="/images/AERODROM TUZLA vektorski logo (5).pdf-2.png" alt="Aerodrom Tuzla Logo" className="w-64 h-auto block" />
+</Link>
 
         {/* Desktop Navigation */}
         <div ref={menuRef} className="hidden md:flex md:flex-1 md:items-center md:justify-between">

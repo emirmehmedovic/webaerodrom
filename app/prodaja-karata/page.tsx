@@ -4,13 +4,8 @@ import React from 'react';
 import TicketSearchWidget from '@/components/tickets/ticket-search-widget';
 import Image from 'next/image';
 import { MapPin, Phone, Mail, PlaneTakeoff, Ticket, Building } from 'lucide-react'; // Added more icons
+import TravelBentoGrid from '@/components/home/travel-bento-grid';
 
-const destinations = [
-  { name: 'Istanbul', image: '/images/istanbul.jpg' },
-  { name: 'Dortmund', image: '/images/dortmund.jpg' },
-  { name: 'Basel', image: '/images/basel.jpg' },
-  { name: 'Memmingen', image: '/images/memmingen.jpg' },
-];
 
 // Simple fade-in animation class (add to globals.css if needed, or use inline style/library)
 // For simplicity, we'll rely on Tailwind transitions for hover effects mainly.
@@ -41,28 +36,8 @@ export default function ProdajaKarataPage() {
       </section>
 
       {/* Destination Showcase Section */}
-      <section className="animate-fade-in-delay-1"> {/* Added animation class placeholder */}
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-white">
-          Istražite Naše Destinacije
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {destinations.map((dest, index) => (
-            <div key={dest.name} className="relative group overflow-hidden rounded-xl shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl">
-              <Image
-                src={dest.image}
-                alt={dest.name}
-                width={400}
-                height={300}
-                className="object-cover w-full h-60 transition-transform duration-500 ease-in-out group-hover:scale-110 group-hover:brightness-110" // Enhanced hover
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent transition-opacity duration-300 group-hover:from-black/60" />
-              <div className="absolute bottom-0 left-0 p-4 transition-transform duration-300 group-hover:translate-y-[-5px]">
-                <h3 className="text-xl font-semibold text-white">{dest.name}</h3>
-                <p className="text-sm text-gray-200 group-hover:text-[#64ffda] transition-colors mt-1">Rezervišite let ▸</p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <section className="animate-fade-in-delay-1">
+        <TravelBentoGrid />
       </section>
 
       {/* In-Person Purchase Section */}
